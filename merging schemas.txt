@@ -1,0 +1,106 @@
+schemas
+
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+// User Schema
+const userSchema = new Schema({
+  name: String,
+  email: String,
+  age: Number
+});
+
+// Post Schema
+const postSchema = new Schema({
+  title: String,
+  content: String,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }  // Reference to User
+});
+
+// Comment Schema
+const commentSchema = new Schema({
+  commentText: String,
+  postId: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },  // Reference to Post
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }  // Reference to User
+});
+
+// Category Schema
+const categorySchema = new Schema({
+  name: String,
+  description: String
+});
+
+// Merged Schema - Referencing rather than embedding
+const mergedSchema = new Schema({
+  title: String,
+  content: String,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Reference to User
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }], // Array of Comment references
+  category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' } // Reference to Category
+});
+
+const User = mongoose.model('User', userSchema);
+const Post = mongoose.model('Post', postSchema);
+const Comment = mongoose.model('Comment', commentSchema);
+const Category = mongoose.model('Category', categorySchema);
+const Merged = mongoose.model('Merged', mergedSchema);
+
+module.exports = { User, Post, Comment, Category, Merged };
+
+
+
+controllers
+
+const mongoose = require('mongoose');
+const { User, Post, Comment, Category, Merged } = require('./models');
+
+mongoose.connect('mongodb://localhost:27017/mydb', { useNewUrlParser: true, useUnifiedTopology: true });
+
+async function createData() {
+  const user = new User({ name: 'John Doe', email: 'john@example.com', age: 30 });
+  await user.save();
+
+  const category = new Category({ name: 'Technology', description: 'All about tech' });
+  await category.save();
+
+  const post = new Post({
+    title: 'New Post Title',
+    content: 'This is the post content.',
+    user: user._id  // Reference to User
+  });
+  await post.save();
+
+  const comment1 = new Comment({
+    commentText: 'Great post!',
+    postId: post._id,  // Reference to Post
+    user: user._id     // Reference to User
+  });
+  await comment1.save();
+
+  const merged = new Merged({
+    title: post.title,
+    content: post.content,
+    user: user._id,      // Reference to User
+    comments: [comment1._id],  // Array of Comment references
+    category: category._id // Reference to Category
+  });
+  await merged.save();
+
+  console.log('Data saved!');
+}
+
+// Example of how to retrieve and populate data
+async function getMergedData() {
+  const data = await Merged.findOne({ title: 'New Post Title' })
+    .populate('user')      // Populate the user field with user data
+    .populate('comments')  // Populate comments with comment data
+    .populate('category'); // Populate category with category data
+
+  console.log('Merged Data:', data);
+}
+
+createData().then(() => {
+  setTimeout(() => {
+    getMergedData();
+  }, 1000);  // Delay for database to be saved
+});
