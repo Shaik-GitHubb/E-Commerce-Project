@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import emailjs from "@emailjs/browser"
 import "../App.css"
 import loginPhoto from '../Photos/login-photo.png'
+import { useNavigate } from 'react-router-dom'
+import { MuiOtpInput } from 'mui-one-time-password-input'
 
 
 const SignUpEmailForm = () => {
     const [name,setName]=useState("")
     const [email,setEmail]=useState("")
-    // const [message,setMessage]=useState("")
     const [password,setPassword]=useState("")
+    const navigate=useNavigate()
 
     const [otpShow,setOtpShow]=useState(false)
     const [otp,setOtp]=useState("")
@@ -54,11 +56,16 @@ const SignUpEmailForm = () => {
         })
     }
 
+    const handleChange=(e)=>{
+        console.log("otp",e)
+        setOtp(e)
+    }
+
     const handleSubmit2=(e)=>{
         e.preventDefault()
         console.log("ran",genNum,"otp",otp)
         if(otp==genNum){
-            alert("Email sent successfully")
+            alert("Successfully Logged In")
             setOtp("")
             setOtpShow(false)
             setName("")
@@ -70,9 +77,9 @@ const SignUpEmailForm = () => {
     }
 
   return (
-   <div className="flex p-10 bg-gray-100">
-              <div className='w-1/3 flex flex-col bg-blue-600 pt-15'>
-                  <span><h2 className='text-white font-bold text-4xl p-5'>Looks like you're new here!</h2></span>
+   <div className="flex p-40 bg-gray-100 pt-10 pb-10">
+              <div className='w-1/3 flex flex-col bg-blue-600 pt-15 '>
+                  <span><h2 className='text-white font-bold text-4xl p-6'>Looks like you're new here!</h2></span>
                   <span><p className='text-gray-200 p-5'>Signup with your email and password</p></span>
                   <img src={loginPhoto} alt="login-photo" className='pt-30 pb-10 w-1/2 mx-auto'/>
               </div>
@@ -84,7 +91,9 @@ const SignUpEmailForm = () => {
                       {
                     otpShow ? (
                             <>
-                                <input type="text" placeholder="Enter your OTP" className='border-b border-black' value={otp} onChange={(e)=>setOtp(e.target.value)}/>
+                                {/* <input type="text" placeholder="Enter your OTP" className='border-b border-black' value={otp} onChange={(e)=>setOtp(e.target.value)}/> */}
+                                {/* <MuiOtpInput value={otp} onChange={handleChange} /> */}  
+                                <MuiOtpInput value={otp} onChange={handleChange}/>
                                 <button onClick={handleSubmit2} className='bg-orange-600 p-2 text-white rounded hover:bg-orange-700 cursor-pointer'>Submit</button>
                             </> 
 
@@ -93,8 +102,9 @@ const SignUpEmailForm = () => {
                         <button type='submit' className='bg-orange-600 p-2 text-white rounded hover:bg-orange-700 cursor-pointer'>Sign Up</button>
                         )
                      }
+                     <h4 className='mt-10 cursor-pointer pb-10 text-blue-600 mx-auto' onClick={()=>navigate("/login")}>Already have an account? <span>Login</span></h4>
                   </form>
-                  <h4 className='mt-10 cursor-pointer pb-10 text-blue-600'>Already have an account? <span>Login</span></h4>
+                  
               </div>
           </div>
   )
