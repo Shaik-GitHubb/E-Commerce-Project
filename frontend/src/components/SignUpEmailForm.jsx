@@ -33,7 +33,7 @@ const SignUpEmailForm = () => {
 
     const sendEmail=(otpGen)=>{
                
-        const serviceId = "service_lliup5q"; 
+        const serviceId="service_lliup5q"; 
         const templateId = "template_am7le58"; 
         const publicKey = "ygM-o1ocrtMbiWzyD";
 
@@ -70,6 +70,8 @@ const SignUpEmailForm = () => {
             setOtpShow(false)
             setName("")
             setEmail("")
+            setPassword("")
+            navigate("/login")
         }
         else{
             alert("Incorrect OTP")
@@ -99,7 +101,7 @@ const SignUpEmailForm = () => {
 
                         ) : (
                             
-                        <button type='submit' className='bg-orange-600 p-2 text-white rounded hover:bg-orange-700 cursor-pointer'>Sign Up</button>
+                        <button type='submit' className='xp-2 text-white rounded hover:bg-orange-700 cursor-pointer'>Sign Up</button>
                         )
                      }
                      <h4 className='mt-10 cursor-pointer pb-10 text-blue-600 mx-auto' onClick={()=>navigate("/login")}>Already have an account? <span>Login</span></h4>

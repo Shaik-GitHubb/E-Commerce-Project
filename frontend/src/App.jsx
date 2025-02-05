@@ -7,6 +7,7 @@ import {BrowserRouter,Routes,Route} from "react-router-dom";
 import Header from './components/Header'
 import Layout from './components/Layout'
 import Footer from './components/Footer'
+import Home from './components/Home'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,7 +18,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route path="register" element={<SignUpEmailForm/>}/>
-          <Route path="login" element={<LoginForm/>}/>
+          <Route path='login' element={<LoginForm/>}/>
+          <Route path="home" element={<Home/>}/>
         </Route>
         <Route path="*" element={<h1>404 Not Found</h1>}/>
       </Routes>

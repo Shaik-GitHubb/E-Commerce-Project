@@ -5,12 +5,14 @@ import loginPhoto from '../Photos/login-photo.png'
 import { useNavigate } from 'react-router-dom'
 
 
-const SignUpEmailForm = () => {
+
+const LoginForm = () => {
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
 
     const [genNum,setGenNum]=useState(0)
     const navigate=useNavigate();
+
 
 
     const handleSubmit=(e)=>{
@@ -41,4 +43,4 @@ const SignUpEmailForm = () => {
   )
 }
 
-export default SignUpEmailForm
+export default LoginForm
