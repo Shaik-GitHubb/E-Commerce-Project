@@ -101,7 +101,7 @@ const SignUpEmailForm = () => {
 
                         ) : (
                             
-                        <button type='submit' className='xp-2 text-white rounded hover:bg-orange-700 cursor-pointer'>Sign Up</button>
+                        <button type='submit' className='xp-2 bg-orange-600 text-white rounded hover:bg-orange-700 cursor-pointer'>Sign Up</button>
                         )
                      }
                      <h4 className='mt-10 cursor-pointer pb-10 text-blue-600 mx-auto' onClick={()=>navigate("/login")}>Already have an account? <span>Login</span></h4>

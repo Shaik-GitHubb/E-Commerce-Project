@@ -7,20 +7,23 @@ import Appliances from "../Photos/Category/Appliances.webp";
 
 import styled from "styled-components";
 import CustomCarousel from "./utilities/StyledComp";
+import AutoSlider from "./utilities/Slider";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Home = () => {
+  const navigate=useNavigate();
   return (
     <>
-      <div className="bg-gray-200">
-        <div className="mt-5">
-        <CustomCarousel/>
+      <div className="bg-gray-100">
+        <div className="mt-5 mb-5">
+        <AutoSlider/>
         </div>
-        <div className="flex flex-row justify-evenly bg-white p-10">
-          <div onClick={() => navigate("/clothing")} className="cursor-pointer">
-            <img src={Clothing} alt="Clothing" className="max-w-[78%]" />
-            <span>Clothing</span>
+        <div className="flex flex-row justify-evenly bg-white p-10 mt-5 mb-5" onClick={() => navigate("/clothing")}>
+          <div  className="cursor-pointer">
+            <img src={Clothing} alt="Clothing" className="max-w-[78%]"/>
+            <span >Clothing</span>
           </div>
           <div
             onClick={() => navigate("/electronics")}

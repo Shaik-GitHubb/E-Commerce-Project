@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
-const Accessories = () => {
+const Appliances = () => {
   const [minPrice,setMinPrice]=useState("");
   const [maxPrice,setMaxPrice]=useState("");
   const [selectedCategory, setSelectedCategory] = useState('All');  
@@ -45,62 +45,49 @@ const Accessories = () => {
   }, [minPrice, maxPrice, selectedCategory]);
 
 
-  const products = [
-    // Men's Accessories
-    {
-      name: "Smart Watch",
-      Category: "Men's Accessories",
-      price: 4999,
-      Description: "Feature-packed smartwatch with heart rate monitoring and notifications.",
-      image: "https://images-na.ssl-images-amazon.com/images/I/71QTFPBlWcL._AC_UL1500_.jpg"
-    },
-    {
-      name: "Leather Wallet",
-      Category: "Men's Accessories",
-      price: 999,
-      Description: "Premium leather wallet with multiple compartments for cash and cards.",
-      image: "https://guysworld.in/wp-content/uploads/2019/03/918JAeC4sIL._SL1500_.jpg"
-    },
-    {
-      name: "Sunglasses",
-      Category: "Men's Accessories",
-      price: 1499,
-      Description: "Stylish UV-protected sunglasses for outdoor wear.",
-      image: "https://sp.yimg.com/ib/th?id=OPAC.kcO7318wo%2bM%2f%2bQ474C474&o=5&pid=21.1&w=160&h=105"
-    },
-    
-    // Women's Accessories
-    {
-      name: "Wireless Earbuds",
-      Category: "Women's Accessories",
-      price: 2999,
-      Description: "Noise-canceling wireless earbuds with long battery life.",
-      image: "https://www.bemwireless.com/wp-content/uploads/2020/10/71DL2xEn3KL._AC_SL1500_-2-1024x949.jpg"
-    },
-    {
-      name: "Backpack",
-      Category: "Women's Accessories",
-      price: 2499,
-      Description: "Spacious and durable backpack for travel and daily use.",
-      image: "https://i5.walmartimages.com/asr/46a0722c-c367-463b-9a8b-7183416a2799.65c3b9e4f052012038dc3b9b9b572b43.jpeg?odnWidth=1000&odnHeight=1000&odnBg=ffffff"
-    },
-    {
-      name: "Laptop Sleeve",
-      Category: "Women's Accessories",
-      price: 1999,
-      Description: "Sleek and protective laptop sleeve with extra storage pockets.",
-      image: "https://i.etsystatic.com/5172514/r/il/6490eb/1334911437/il_1080xN.1334911437_3jzx.jpg"
-    },
-    
-    // Kids' Accessories
-    {
-      name: "Cap",
-      Category: "Kids' Accessories",
-      price: 799,
-      Description: "Comfortable and stylish cap for casual outings.",
-      image: "https://tse1.mm.bing.net/th?id=OIP.Lc6x8iHYFyhra2l2GnnmdgHaHa&pid=Api&P=0&h=180"
-    }
-  ];
+  const products=[{
+    name:"Cotton T-Shirt",
+    Category:"Men",
+    price:1499,
+    Description:"A soft, breathable cotton t-shirt for daily wear.",
+    image:"https://uniform7-static.myshopblocks.com/images/2021/06/contain/2048x2048/849abe0ad9018dea67f10859c59eef78.jpg"
+  },{
+    name:"Floral Summer Dress",
+    Category:"Women",
+    price:2799,
+    Description:"A lightweight floral dress, perfect for summer.",
+    image:"http://stylesweekly.com/wp-content/uploads/2016/06/10-best-floral-dresses-for-beautiful-summer-1.jpg"
+  },{
+    name:"Leather Formal Shoes",
+    Category:"Men",
+    price:3999,
+    Description:"Premium leather shoes, ideal for office or formal occasions.",
+    image:"https://images-na.ssl-images-amazon.com/images/I/811dduxFXYL._AC_UL1500_.jpg"
+  },{
+    name:"Handbag",
+    Category:"Women",
+    price:2499,
+    Description:"Stylish leather handbag with multiple compartments.",
+    image:"https://cdn.shopify.com/s/files/1/0527/8626/6275/products/22328_1_d5068156-c49d-469b-b92f-f5685fabe1ff.jpg?v=1611571394"
+  },{
+    name:"Running Shoes",
+    Category:"Kids",
+    price:1999,
+    Description:"Comfortable running shoes with a durable sole.",
+    image:"https://s7d2.scene7.com/is/image/academy/20642872?$pdp-gallery-ng$"
+  },{
+    name:"Winter Jacket",
+    Category:"Men",
+    price:3499,
+    Description:"Warm and cozy jacket, great for cold weather.",
+    image:"https://images-na.ssl-images-amazon.com/images/I/71xOOqWS8SL._AC_UX679_.jpg"
+  },{
+    name:"Denim Jeans",
+    Category:"Women",
+    price:2299,
+    Description:"High-quality stretchable denim jeans for comfort and style",
+    image:"https://images.fcwholesale.com/TR/TR2434-BLUEDENIM-10.jpg"
+  }]
 
   return (
     <div className='bg-gray-100 flex flex-row w-full h-full '>
@@ -151,5 +138,4 @@ const Accessories = () => {
   )
 }
 
-export default Accessories
-
+export default Appliances
