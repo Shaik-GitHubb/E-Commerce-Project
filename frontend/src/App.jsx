@@ -15,12 +15,16 @@ import Accessories from './components/Categories/Accessories'
 import Card from './components/utilities/Card'
 import { CartProvider } from './components/Store/cartContext'
 import Cart from './components/Categories/Cart'
+import Order from './components/Categories/Order'
+import CheckoutForm from './components/Categories/CheckoutForm'
+import { AddressProvider } from './components/Store/addressContext'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <CartProvider>
+      <AddressProvider>
     <div className='bg-gray-100'>
     <BrowserRouter>
       <Routes>
@@ -34,11 +38,14 @@ function App() {
           <Route path='accessories' element={<Accessories/>}/>
           <Route path='product' element={<Card/>}/>
           <Route path='cart' element={<Cart/>}/>
+          <Route path="order" element={<Order/>}/>
+          <Route path="payment" element={<CheckoutForm/>}/>
         </Route>
         <Route path="*" element={<h1>404 Not Found</h1>}/>
       </Routes>
     </BrowserRouter>
     </div>
+    </AddressProvider>
     </CartProvider>
   )
 }

@@ -34,10 +34,15 @@ export const CartProvider=({children})=>{
         setTotalPrice(totalPrice + product.price * product.quantity);
       };
 
-      console.log(cart)
+      const removeFromCart = (product) => {
+        setCart((prevCart) => prevCart.filter((item) => item.name !== product.name));
+        setTotalPrice(totalPrice - product.price * product.quantity);
+        setTotalItems((prev)=>prev-1);
+      };
+
 
     return ( 
-        <CartContext.Provider value={{cart,totalPrice,totalItems,addToCart}}>
+        <CartContext.Provider value={{cart,totalPrice,totalItems,addToCart,removeFromCart}}>
             {children}
         </CartContext.Provider>
     )
