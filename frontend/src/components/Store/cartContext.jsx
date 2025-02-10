@@ -17,21 +17,22 @@ export const CartProvider=({children})=>{
 
     const addToCart = (product) => {
         setCart((prevCart) => {
-          const existingItem = prevCart.find((item) => item.name === product.name);
+          const existingItem = prevCart.find((item) => item.title === product.title);
+
           if (existingItem) {
-            setTotalItems((p)=>p+0);
+            console.log("first",existingItem);
             return prevCart.map((item) =>
               item.name === product.name
-                ? { ...item, quantity:  product.quantity }
+                ? { ...item, quantity: product.quantity }
                 : item
             );
           } else {
-            setTotalPrice(totalPrice + product.price * product.quantity);
-            setTotalItems((prev)=>prev+1);
+            console.log("Secong",product);
             return [...prevCart, { ...product, quantity: product.quantity }];
           }
         });
-        setTotalPrice(totalPrice + product.price * product.quantity);
+        setTotalPrice((prevTotal) => prevTotal + product.price * product.quantity);
+        setTotalItems((prevTotal) => prevTotal + 1);
       };
 
       const removeFromCart = (product) => {

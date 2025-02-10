@@ -39,9 +39,9 @@ const Home = () => {
             <img src={Accessories} alt="Accessories" className="max-w-[78%]" />
             <span>Accessories</span>
           </div>
-          <div onClick={() => navigate("/appliances")} className="cursor-pointer">
-            <img src={Appliances} alt="Appliances" className="max-w-[78%]" />
-            <span>Appliances</span>
+          <div onClick={() => navigate("/groceries")} className="cursor-pointer">
+            <img src={Appliances} alt="Groceries" className="max-w-[78%]" />
+            <span>Groceries</span>
           </div>
         </div>
       </div>

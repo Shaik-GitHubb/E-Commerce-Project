@@ -18,23 +18,25 @@ import Cart from './components/Categories/Cart'
 import Order from './components/Categories/Order'
 import CheckoutForm from './components/Categories/CheckoutForm'
 import { AddressProvider } from './components/Store/addressContext'
+import { AuthProvider } from './components/Store/authContext'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
+    <AuthProvider>
     <CartProvider>
-      <AddressProvider>
+      
     <div className='bg-gray-100'>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout/>}>
+          <Route path="/" element={<Home/>}/>
           <Route path="register" element={<SignUpEmailForm/>}/>
           <Route path='login' element={<LoginForm/>}/>
-          <Route path="home" element={<Home/>}/>
           <Route path='clothing' element={<Clothing/>}/>
           <Route path='electronics' element={<Electronics/>}/>
-          <Route path='appliances' element={<Appliances/>}/>
+          <Route path='groceries' element={<Appliances/>}/>
           <Route path='accessories' element={<Accessories/>}/>
           <Route path='product' element={<Card/>}/>
           <Route path='cart' element={<Cart/>}/>
@@ -45,8 +47,8 @@ function App() {
       </Routes>
     </BrowserRouter>
     </div>
-    </AddressProvider>
     </CartProvider>
+    </AuthProvider>
   )
 }
 

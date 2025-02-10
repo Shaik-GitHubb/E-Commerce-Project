@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../Store/cartContext';
+import { useAuth } from '../Store/authContext';
 
 const Card = () => {
 
@@ -11,6 +12,10 @@ const Card = () => {
     const [quantity, setQuantity] = useState(1);
     const [maxQuantity, setMaxQuantity] = useState(false);
     const [minQuantity, setMinQuantity] = useState(false);
+
+    const navigate = useNavigate();
+
+    const {user}=useAuth();
 
     const handleAdd=()=>{
       setQuantity((p)=>{
@@ -36,6 +41,19 @@ const Card = () => {
           return p
         }
       })
+    }
+
+    const handleAddToCart = () => {
+      console.log("user", user);
+
+  if (!user) {
+    navigate("/login", { state: { from: "/cart" } });
+    return; 
+  }
+
+  addToCart({ ...product, quantity });
+  navigate("/cart");
+      
     }
 
   return (
@@ -72,7 +90,7 @@ const Card = () => {
               }
             
           </div>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105" onClick={() => addToCart({...product,quantity})}>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105" onClick={handleAddToCart}>
             Add to Cart
           </button>
         </div>

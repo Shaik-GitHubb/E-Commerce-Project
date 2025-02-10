@@ -4,6 +4,7 @@ import "../App.css"
 import loginPhoto from '../Photos/login-photo.png'
 import { useNavigate } from 'react-router-dom'
 import { MuiOtpInput } from 'mui-one-time-password-input'
+import axios from 'axios'
 
 
 const SignUpEmailForm = () => {
@@ -66,6 +67,18 @@ const SignUpEmailForm = () => {
         console.log("ran",genNum,"otp",otp)
         if(otp==genNum){
             alert("Successfully Logged In")
+            let obj={
+                "username":name,
+                "email":email,
+                "password":password
+            }
+            axios.post("http://localhost:3000/user/register",obj)
+            .then((res)=>{
+                console.log(res)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
             setOtp("")
             setOtpShow(false)
             setName("")
