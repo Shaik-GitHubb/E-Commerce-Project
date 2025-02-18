@@ -20,8 +20,8 @@ const Home = () => {
         <div className="mt-5 mb-5">
         <AutoSlider/>
         </div>
-        <div className="flex flex-row justify-evenly bg-white p-10 mt-5 mb-5" onClick={() => navigate("/clothing")}>
-          <div  className="cursor-pointer">
+        <div className="flex flex-row justify-evenly bg-white p-10 mt-5 mb-5" >
+          <div  className="cursor-pointer" onClick={() => navigate("/clothing")}>
             <img src={Clothing} alt="Clothing" className="max-w-[78%]"/>
             <span >Clothing</span>
           </div>

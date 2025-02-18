@@ -14,9 +14,11 @@ const Header = () => {
     if (!cartContext) return null; 
     const { totalItems}=cartContext;
     const {user,logout}=useAuth();
+    const {removeAllFromCart}=useCart();
 
     const handleLogout=async()=>{
         try{
+          removeAllFromCart();
             await logout();
             navigate("/login");
         }catch(err){

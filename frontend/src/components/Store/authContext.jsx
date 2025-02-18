@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
       try {
         const response = await axios.get("http://localhost:3000/user/me", { withCredentials: true });
         setUser(response.data.user);
+        console.log("user",response.data.user);
       } catch (error) {
         console.log("Not authenticated");
       }
@@ -21,8 +22,9 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
+      console.log("It is being called for login")
       await axios.post("http://localhost:3000/user/login", { email, password }, { withCredentials: true });
-      window.location.reload(); // Reload to fetch user info
+      // window.location.reload(); // Reload to fetch user info
     } catch (error) {
       console.error("Login error:", error.response?.data?.message || error);
     }

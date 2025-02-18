@@ -19,22 +19,21 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Reset error message
+    setError(""); 
 
     try {
       const response = await axios.post(
         "http://localhost:3000/user/login",
         { email, password },
-        { withCredentials: true } // Important: Ensures cookies are sent
+        { withCredentials: true } 
       );
 
-    // const response=login(email,password)
 
       if (response.status === 200) {
-        console.log(response)
         setUser(response.data.user);
         alert("Login successful");
-        navigate(location.state?.from || "/"); // Redirect to a protected route
+        navigate( "/"); 
+        window.location.reload(); 
       }
     } catch (err) {
       console.error("Login Error:", err.response?.data?.message || err);
@@ -50,6 +49,7 @@ const LoginForm = () => {
                   <img src={loginPhoto} alt="login-photo" className='pt-30 pb-10 w-1/2 mx-auto'/>
               </div>
               <div  className='w-2/3 bg-white'>
+
                   <form className='flex flex-col gap-10 mt-10 px-10 pl-20' onSubmit={handleSubmit}>
                       <input type="email" placeholder='Enter Email' className='border-b border-black' value={email} onChange={(e)=>setEmail(e.target.value)}/>
                       <input type="password" placeholder='Enter Password' className='border-b border-black' value={password} onChange={(e)=>setPassword(e.target.value)}/>   

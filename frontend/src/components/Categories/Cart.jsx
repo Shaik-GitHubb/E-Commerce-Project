@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 const Cart = () => {
     const navigate=useNavigate();
     const {cart,totalPrice,totalItems,removeFromCart}=useCart();
-    console.log("cart render")
+    console.log("cart render",totalItems,totalPrice)
   return (
     <div className='flex flex-row '>
         <div className='ml-20 flex flex-col gap-3 w-2/3'>
             {
-                cart.map((item)=><div className='flex flex-row gap-5 bg-white'>
+                cart?.map((item)=><div key={item._id} className='flex flex-row gap-5 bg-white'>
                     
                     <img src={item.image} alt="" className='w-50 h-40' />
                     <div className='flex flex-col gap-2'>
