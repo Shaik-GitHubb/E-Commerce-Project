@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 
 app.use("/user", userrouter);
 
-app.use(express.static("public"));
+app.use(express.static("public"))
 app.use("/products",productrouter)
 
 app.use("/cart",cartrouter)
