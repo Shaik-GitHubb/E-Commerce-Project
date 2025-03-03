@@ -1,85 +1,145 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { useCart } from "../Store/cartContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Bounce, toast } from "react-toastify";
 
 const CheckoutForm = () => {
-  const [fname,setFname]=useState("");
-  const [lname,setLname]=useState("");
-  const [address,setAddress]=useState("");
-  const [city,setCity]=useState("");
-  const [state,setState]=useState("");
-  const [pin,setPin]=useState("");
-  const [cardnumber,setCardnumber]=useState("");
-  const [expiry,setExpiry]=useState("");
-  const [cvv,setCvv]=useState("");
+  const { cart, totalPrice, totalItems } = useCart();
+  const [address, setAddress] = useState([]);
+  const [paymentMethod,setPaymentMethod] = useState("");
+  const navigate =useNavigate();
 
-  const data={fname,lname,address,city,state,pin,cardnumber,expiry,cvv};
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/address/get", { withCredentials: true })
+      .then((res) => res.data.data[0])
+      .then((val) => {
+        console.log("val", val);
+        setAddress(val);
+      });
+  }, []);
+
+  const handlePaymentMethod=(e)=>{
+    setPaymentMethod(e.target.value);
+  }
+
+  const placeOrder = ()=>{
+    if(!paymentMethod){
+      toast.error("Please select a payment method", {position:"top-center",autoClose:1500,hideProgressBar:false,closeOnClick:false,pauseOnHover:true,draggable:true,progress:undefined,theme:"light",transition:Bounce});
+      return;
+    }
+    toast.success("Order placed successfully", {position:"top-center",autoClose:1500,hideProgressBar:false,closeOnClick:false,pauseOnHover:true,draggable:true,progress:undefined,theme:"light",transition:Bounce});
+    navigate("/");
+  }
 
   return (
-    <div className="bg-gray-100 text-black min-h-screen">
-      <div className="w-full max-w-3xl mx-auto p-8">
-        <div className="bg-white p-8 rounded-lg shadow-md border border-gray-300">
-          <h1 className="text-2xl font-bold text-black mb-4">Checkout</h1>
+    <div className="p-6 flex flex-col gap-6 max-w-5xl mx-auto bg-gray-50 rounded-lg shadow-lg">
+      <h2 className="text-3xl font-bold text-blue-700 text-center">Checkout</h2>
 
-          {/* Shipping Address */}
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold text-black mb-2">Shipping Address</h2>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="first_name" className="block text-black mb-1">First Name</label>
-                <input type="text" id="first_name" className="w-full rounded-lg border py-2 px-3 bg-gray-100 text-black border-gray-300 " required/>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h3 className="text-xl font-semibold border-b pb-2 mb-4">
+            Order Summary
+          </h3>
+          <div className="flex flex-col gap-4 ">
+            {cart?.map((item) => (
+              <div
+                key={item._id}
+                className="flex items-center gap-4 border-b pb-3"
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-24 h-24 object-cover rounded-lg"
+                />
+                <div>
+                  <p className="text-lg font-semibold">{item.title}</p>
+                  <p className="text-gray-600">Price: ₹{item.price}</p>
+                  <p className="text-gray-600">Quantity: {item.quantity}</p>
+                </div>
               </div>
-              <div>
-                <label htmlFor="last_name" className="block text-black mb-1">Last Name</label>
-                <input type="text" id="last_name" className="w-full rounded-lg border py-2 px-3 bg-gray-100 text-black border-gray-300" />
-              </div>
+            ))}
+          </div>
+
+          <div className="mt-6">
+            <h3 className="text-xl font-semibold border-b pb-2 mb-2">
+              Delivery Address
+            </h3>
+            <p className="text-gray-700">
+              {address.address || "No Address Found"}
+            </p>
+          </div>
+        </div>
+
+        
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h3 className="text-xl font-semibold border-b pb-2 mb-4">
+            Price Details
+          </h3>
+          <div className="space-y-2">
+            <div className="flex justify-between text-gray-700">
+              <span>Price ({totalItems} items)</span>
+              <span>₹{totalPrice}</span>
             </div>
-
-            <div className="mt-4">
-              <label htmlFor="address" className="block text-black mb-1">Address</label>
-              <input type="text" id="address" className="w-full rounded-lg border py-2 px-3 bg-gray-100 text-black border-gray-300" />
+            <div className="flex justify-between text-gray-700">
+              <span>Discount</span>
+              <span className="text-green-600">₹0</span>
             </div>
-
-            <div className="mt-4">
-              <label htmlFor="city" className="block text-black mb-1">City</label>
-              <input type="text" id="city" className="w-full rounded-lg border py-2 px-3 bg-gray-100 text-black border-gray-300" />
+            <div className="flex justify-between text-gray-700">
+              <span>Delivery Charges</span>
+              <span className="text-green-600">Free</span>
             </div>
-
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              <div>
-                <label htmlFor="state" className="block text-black mb-1">State</label>
-                <input type="text" id="state" className="w-full rounded-lg border py-2 px-3 bg-gray-100 text-black border-gray-300" />
-              </div>
-              <div>
-                <label htmlFor="zip" className="block text-black mb-1">PIN Code</label>
-                <input type="text" id="zip" className="w-full rounded-lg border py-2 px-3 bg-gray-100 text-black border-gray-300" />
-              </div>
+            <div className="flex justify-between text-lg font-semibold border-t pt-2">
+              <span>Total Amount</span>
+              <span>₹{totalPrice}</span>
             </div>
           </div>
 
-          {/* Payment Information */}
-          <div>
-            <h2 className="text-xl font-semibold text-black mb-2">Payment Information</h2>
-            <div className="mt-4">
-              <label htmlFor="card_number" className="block text-black mb-1">Card Number</label>
-              <input type="text" id="card_number" className="w-full rounded-lg border py-2 px-3 bg-gray-100 text-black border-gray-300" />
-            </div>
+          <div className="mt-6">
+            <h3 className="text-xl font-semibold border-b pb-2 mb-2">
+              Payment Method
+            </h3>
+            <div className="flex flex-col space-y-2">
+              <label className="flex items-center space-x-2">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="phonepe"
+                  className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  onChange={handlePaymentMethod}
+                />
+                <span className="text-gray-700">PhonePe</span>
+              </label>
 
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              <div>
-                <label htmlFor="exp_date" className="block text-black mb-1">Expiration Date</label>
-                <input type="text" id="exp_date" className="w-full rounded-lg border py-2 px-3 bg-gray-100 text-black border-gray-300" />
-              </div>
-              <div>
-                <label htmlFor="cvv" className="block text-black mb-1">CVV</label>
-                <input type="text" id="cvv" className="w-full rounded-lg border py-2 px-3 bg-gray-100 text-black border-gray-300" />
-              </div>
+              <label className="flex items-center space-x-2">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="paytm"
+                  className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  onChange={handlePaymentMethod}
+                />
+                <span className="text-gray-700">Paytm</span>
+              </label>
+
+              <label className="flex items-center space-x-2">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="cod"
+                  className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  onChange={handlePaymentMethod}
+                />
+                <span className="text-gray-700">Cash on Delivery</span>
+              </label>
             </div>
           </div>
 
-          <div className="mt-8 flex justify-end">
-            <button className="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-700">
-              Place Order
-            </button>
-          </div>
+          <button className="mt-6 w-full bg-orange-500 text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-all" onClick={placeOrder}>
+            Place Order
+          </button>
         </div>
       </div>
     </div>

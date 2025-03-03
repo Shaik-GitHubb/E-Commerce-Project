@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     console.log("in auth",user)
-    await axios.get("http://localhost:3000/user/logout", {}, { withCredentials: true });
+    await axios.get("http://localhost:3000/user/logout", { withCredentials: true });
     setUser(null);
   };
 

@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import productrouter from "./routes/productRouter.js";
 import cartrouter from "./routes/cartRouter.js";
+import addressRouter from "./routes/addressRouter.js";
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ app.use(express.static("public"))
 app.use("/products",productrouter)
 
 app.use("/cart",cartrouter)
+app.use("/address",addressRouter)
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");

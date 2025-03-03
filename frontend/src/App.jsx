@@ -19,6 +19,8 @@ import Order from './components/Categories/Order'
 import CheckoutForm from './components/Categories/CheckoutForm'
 import { AddressProvider } from './components/Store/addressContext'
 import { AuthProvider } from './components/Store/authContext'
+import Products from './components/Categories/Products'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -34,18 +36,28 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="register" element={<SignUpEmailForm/>}/>
           <Route path='login' element={<LoginForm/>}/>
-          <Route path='clothing' element={<Clothing/>}/>
-          <Route path='electronics' element={<Electronics/>}/>
-          <Route path='groceries' element={<Appliances/>}/>
-          <Route path='accessories' element={<Accessories/>}/>
+          <Route path='products/:categoryName' element={<Products/>}/>
           <Route path='product' element={<Card/>}/>
           <Route path='cart' element={<Cart/>}/>
           <Route path="order" element={<Order/>}/>
-          <Route path="payment" element={<CheckoutForm/>}/>
+          <Route path="checkout" element={<CheckoutForm/>}/>
+          {/* <Route path="payment" element={<CheckoutForm/>}/> */}
         </Route>
         <Route path="*" element={<h1>404 Not Found</h1>}/>
       </Routes>
     </BrowserRouter>
+    <ToastContainer
+      position="top-center"
+      autoClose={4000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+    />
     </div>
     </CartProvider>
     </AuthProvider>

@@ -6,6 +6,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useCart } from './Store/cartContext';
 import { useAuth } from './Store/authContext';
+import { Bounce, toast } from 'react-toastify';
 
 const Header = () => {
     const navigate=useNavigate();
@@ -18,8 +19,9 @@ const Header = () => {
 
     const handleLogout=async()=>{
         try{
-          removeAllFromCart();
+            removeAllFromCart();
             await logout();
+            toast.success("Logout successful",{position:"top-center",autoClose:1000,hideProgressBar:false,closeOnClick:false,pauseOnHover:true,draggable:true,progress:undefined,theme:"light",transition:Bounce});
             navigate("/login");
         }catch(err){
             console.log(err);

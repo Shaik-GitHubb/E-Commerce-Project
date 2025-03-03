@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useCart } from '../Store/cartContext'
 import { useNavigate } from 'react-router-dom';
 
@@ -6,6 +6,10 @@ const Cart = () => {
     const navigate=useNavigate();
     const {cart,totalPrice,totalItems,removeFromCart}=useCart();
     console.log("cart render",totalItems,totalPrice)
+    // useEffect(()=>{
+    //     window.location.reload();
+    // },[])
+    // window.location.reload();
   return (
     <div className='flex flex-row '>
         <div className='ml-20 flex flex-col gap-3 w-2/3'>
@@ -14,7 +18,7 @@ const Cart = () => {
                     
                     <img src={item.image} alt="" className='w-50 h-40' />
                     <div className='flex flex-col gap-2'>
-                    <div className='mt-4 font-bold '>{item.name}</div>
+                    <div className='mt-4 font-bold '>{item.title}</div>
                     <div>Price : ₹{item.price}</div>
                     <div>Quantity: {item.quantity}</div>
                     <div className='bg-red-600 w-17 rounded-md text-white font-medium px-1 cursor-pointer' onClick={()=>{

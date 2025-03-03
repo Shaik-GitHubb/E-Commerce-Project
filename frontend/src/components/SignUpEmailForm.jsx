@@ -49,11 +49,11 @@ const SignUpEmailForm = () => {
         emailjs.send(serviceId,templateId,templateParams,publicKey)
         .then((response)=>{
             console.log("Email Sent Successfully ",response);
-            alert("Email sent successfully")
+            alert("OTP sent successfully")
             setOtpShow(true);
         })
         .catch((error)=>{
-            console.log("Error sending email ",error);
+            console.log("Error sending OTP ",error);
         })
     }
 

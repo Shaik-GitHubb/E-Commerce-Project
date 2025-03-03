@@ -31,6 +31,17 @@ const Electronics = () => {
   };
 
   useEffect(() => {
+
+    let updatedProducts = products;
+
+    if(products.length>0){
+      updatedProducts = products.filter((product) => {
+        return product.category.toLowerCase() === "electronics"; 
+      });
+      setFilteredProducts(updatedProducts);
+      console.log("updatedProducts",updatedProducts)
+    }
+
     const uniqueSubCategories = [...new Set(
       products
         .filter(product => product.category.toLowerCase() === "electronics")
@@ -65,18 +76,18 @@ const Electronics = () => {
     fetchProducts();
   }, []);
   
-  useEffect(() => {
-    let updatedProducts = products;
+  // useEffect(() => {
+  //   let updatedProducts = products;
 
-    if(products.length>0){
-      updatedProducts = products.filter((product) => {
-        return product.category.toLowerCase() === "electronics"; 
-      });
-      setFilteredProducts(updatedProducts);
-      console.log("updatedProducts",updatedProducts)
-    }
+  //   if(products.length>0){
+  //     updatedProducts = products.filter((product) => {
+  //       return product.category.toLowerCase() === "electronics"; 
+  //     });
+  //     setFilteredProducts(updatedProducts);
+  //     console.log("updatedProducts",updatedProducts)
+  //   }
     
-  }, [products]);
+  // }, [products]);
 
 
    const handleRatingChange = (e) => {
